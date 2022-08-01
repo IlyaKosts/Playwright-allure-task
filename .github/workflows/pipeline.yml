@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  workflow_dispatch:
+
+jobs:
+  testing:
+    runs-on: ubuntu-latest
+    steps:
+      
+      - uses: actions/checkout@v3
+      
+      - name: install;
+        run: npm install;
+
+      - name: install Playwright;
+        run: npx playwright install;
+        
+      - name: install Playwright deps;
+        run: npx playwright install-deps;
+        
+      - name: install Allure-report;
+        run: npm install allure-commandline --save-dev;
+        
+      - name: run test;
+        run: npm run test;
+        
+      - name: generete aluure repor;
+        run: npm run allure-generate;
+    
